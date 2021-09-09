@@ -18,6 +18,5 @@ while(size < 6):
     turtle.pendown()
     turtle.forward(500)
     size+=1
-    
-    
 
+turtle.exitonclick()
