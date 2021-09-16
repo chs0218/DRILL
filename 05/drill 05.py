@@ -36,5 +36,5 @@ turtle.onkey(move_a, 'a')
 turtle.onkey(move_s, 's')
 turtle.onkey(move_d, 'd')
 turtle.onkey(restart, 'Escape')
-
 turtle.listen()
+turtle.mainloop()
