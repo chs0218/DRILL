@@ -2,6 +2,7 @@ from pico2d import *
 from random import randint
 
 def handle_events():
+    global running
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -31,8 +32,8 @@ hand_arrow.draw(Arrow_X, Arrow_Y)
 
 while running:
     sec = 0
-    Arrow_X = randint(0, 600)
-    Arrow_Y = randint(0, 600)
+    Arrow_X = randint(0, KPU_WIDTH)
+    Arrow_Y = randint(0, KPU_HEIGHT)
     if Arrow_X > x:
         frameline = 1
     else:
