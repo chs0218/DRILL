@@ -85,8 +85,8 @@ n = 20
 a = 65
 b = 100
 
-# draw_k(a, b, n)
+draw_k(a, b, n)
 # draw_butterfly()
-draw_jk(2, 200, 200, 1, 3, 4)
+# draw_jk(2, 200, 200, 1, 3, 4)
 
 turtle.done()
