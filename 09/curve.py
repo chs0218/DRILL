@@ -1,10 +1,8 @@
 import turtle
 import random
 
-
 def stop():
     turtle.bye()
-
 
 def prepare_turtle_canvas():
     turtle.setup(1920, 1080)
@@ -81,16 +79,55 @@ def draw_curve_4_points(p1, p2, p3, p4):
         draw_point((x, y))
     draw_point(p4)
 
+def draw_curve_points():
+    global cx, cy
+    global p1, p2, p3, p4
+    global t
+
+    cx = ((-t ** 3 + 2 * t ** 2 - t) * p1[0] + (3 * t ** 3 - 5 * t ** 2 + 2) * p2[0] + (-3 * t ** 3 + 4 * t ** 2 + t) * p3[0] + (t ** 3 - t ** 2) * p4[0]) / 2
+    cy = ((-t ** 3 + 2 * t ** 2 - t) * p1[1] + (3 * t ** 3 - 5 * t ** 2 + 2) * p2[1] + (-3 * t ** 3 + 4 * t ** 2 + t) * p3[1] + (t ** 3 - t ** 2) * p4[1]) / 2
+    draw_point((cx, cy))
+
+    t += 0.01
+    if t >= 1.0:
+        p1, p2, p3, p4 = get_next_four_points()
+        t = 0
+    pass
+
+def get_next_four_points():
+    global cur_index
+    global points
+    start = cur_index % 4
+    end = start + 4
+    points = extended_target_points[start:end]
+    cur_index += 1
+    return points
 
 prepare_turtle_canvas()
 
 p1 = (100, 100); p2 = (-50, 400); p3 = (-200, -200); p4 = (400, -50)
+draw_curve_4_points(p1, p2, p3, p4)
+
+points = []
+playing = True
+
+points.append(p1)
+points.append(p2)
+points.append(p3)
+points.append(p4)
+
+extended_target_points = points + points[:3]
+cur_index = -1
+
+t = 0
+p1, p2, p3, p4 = get_next_four_points()
 
 draw_big_point(p1)
 draw_big_point(p2)
 draw_big_point(p3)
 draw_big_point(p4)
 
-
+while playing:
+    draw_curve_points()
 
 turtle.done()
