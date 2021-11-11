@@ -131,6 +131,7 @@ class SleepState:
             boy.image.clip_composite_draw(boy.frame * 100, 200, 100, 100, -3.141592 / 2, '',
                                           boy.x + 25, boy.y - 25, 100, 100)
 
+
 next_state_table = {
     DashState: {SHIFT_UP: RunState, DASH_TIMER: RunState, RIGHT_DOWN: IdleState, LEFT_DOWN: IdleState,
                 LEFT_UP: IdleState, RIGHT_UP: IdleState, SPACE: DashState},
@@ -171,7 +172,6 @@ class Boy:
                 # 일단 아래 문장을 실행해보기..
                 history.append((self.cur_state.__name__, event_name[event]))
                 self.cur_state = next_state_table[self.cur_state][event]
-                print('State:', self.cur_state.__name__, 'Event:', event_name[event])
             except:
                 # 만약 문제가 발생하면, 아래를 실행
                 # 어떤 정보가 필요??? 현재 상태 정보, 어떤 이벤트였는지?
