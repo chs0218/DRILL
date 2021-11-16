@@ -1,24 +1,29 @@
+import random
 from pico2d import *
-import game_framework
 import game_world
-
-PIXEL_PER_METER = (10.0 / 0.3)
-BALL_KM_PER_HOUR = 108.0
-BALL_M_PER_SEC = BALL_KM_PER_HOUR * 1000.0 / 3600.0
-BALL_SPEED_PPS = (BALL_M_PER_SEC * PIXEL_PER_METER)
+import game_framework
 
 class Ball:
     image = None
-    def __init__(self, x = 400, y = 300, velocity = 0):
+
+    def __init__(self):
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
-        self.x, self.y, self.velocity = x, y, velocity
+        self.x, self.y, self.fall_speed = random.randint(0, 1600-1), 60, 0
+
+    def get_bb(self):
+        # fill here
+        return 0,0,0,0
 
     def draw(self):
         self.image.draw(self.x, self.y)
+        # fill here for draw
 
     def update(self):
-        self.x += BALL_SPEED_PPS * game_framework.frame_time * self.velocity
+        self.y -= self.fall_speed * game_framework.frame_time
 
-        if self.x < 25 or self.x > 1600 - 25:
-            game_world.remove_object(self)
+    #fill here for def stop
+
+
+# fill here
+# class BigBall
