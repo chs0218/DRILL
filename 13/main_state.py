@@ -16,7 +16,7 @@ name = "MainState"
 boy = None
 grass = None
 balls = []
-brick = None
+bricks = None
 
 def collide(a, b):
     # fill here
@@ -73,6 +73,8 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
+    if boy.stair != -1:
+        boy.x += game_framework.frame_time * bricks[boy.stair].speed
 
     for ball in balls.copy():
         if collide(ball, grass):
@@ -80,6 +82,13 @@ def update():
         if collide(ball, boy):
             balls.remove(ball)
             game_world.remove_object(ball)
+
+    n = 0
+    for brick in bricks:
+        if collide(boy, brick):
+            boy.go_up(brick)
+            boy.stair = n
+        n += 1
 
 
 def draw():

@@ -7,7 +7,6 @@ import game_world
 
 
 class Brick:
-
     def __init__(self, center=300, y=100):
         self.image = load_image('brick180x40.png')
         self.left_wall, self.right_wall = center - 100, center + 100

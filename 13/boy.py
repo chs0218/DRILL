@@ -64,7 +64,6 @@ class IdleState:
 
 
 class RunState:
-
     def enter(boy, event):
         if event == RIGHT_DOWN:
             boy.velocity += RUN_SPEED_PPS
@@ -81,10 +80,14 @@ class RunState:
             boy.fire_ball()
 
     def do(boy):
+        from main_state import bricks
         #boy.frame = (boy.frame + 1) % 8
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.x += boy.velocity * game_framework.frame_time
-        boy.x = clamp(25, boy.x, 1600 - 25)
+        if boy.stair != -1:
+            boy.x = clamp(bricks[boy.stair].x - 70, boy.x, bricks[boy.stair].x + 70)
+        else:
+            boy.x = clamp(25, boy.x, 1600 - 25)
 
     def draw(boy):
         if boy.dir == 1:
@@ -131,6 +134,7 @@ class Boy:
         self.dir = 1
         self.velocity = 0
         self.frame = 0
+        self.stair = -1
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
@@ -144,6 +148,8 @@ class Boy:
     def fire_ball(self):
         pass
 
+    def go_up(self, brick):
+        self.y = brick.y + 50
 
     def add_event(self, event):
         self.event_que.insert(0, event)
